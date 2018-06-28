@@ -56,6 +56,8 @@ namespace gr {
 		       io_signature::make(1, 1, sizeof(gr_complex))),
         d_delays(delays),
         d_mags(mags),
+        d_LOS(LOS),
+        d_K(K),
         d_sintable(1024)
     {
         if(mags.size() != delays.size())
@@ -91,6 +93,15 @@ namespace gr {
         for(size_t j=0; j<d_faders.size(); j++){
             fading_taps.push_back( std::vector<gr_complex>() );
             d_faders[j]->next_samples(fading_taps[j], noutput_items);
+
+            if (d_LOS) {
+                if (j==0) {
+                    fading_taps[j] *= sqrtf(d_K)/sqrtf(d_K+1);
+                }
+                else {
+                    fading_taps[j] *= 1/sqrtf(d_K+1);
+                }
+            }
             }
 
         // loop over each output sample
