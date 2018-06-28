@@ -74,8 +74,8 @@ namespace gr {
         void update_theta();
 
         flat_fader_impl(unsigned int N, float fDTs, bool LOS, float K, int seed);
-        gr_complex next_sample();
-        void next_samples(std::vector<gr_complex> &HVec, int n_samples);
+        gr_complex next_sample(float scale_factor);
+        void next_samples(std::vector<gr_complex> &HVec, int n_samples, float scale_factor);
 
     }; /* class flat_fader_impl */
   } /* namespace channels */

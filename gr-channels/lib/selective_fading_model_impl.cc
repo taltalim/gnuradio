@@ -91,18 +91,21 @@ namespace gr {
         // pregenerate fading components
         std::vector<std::vector<gr_complex> > fading_taps;
         for(size_t j=0; j<d_faders.size(); j++){
+            float scale_factor = 1.0;
+
             fading_taps.push_back( std::vector<gr_complex>() );
-            d_faders[j]->next_samples(fading_taps[j], noutput_items);
 
             if (d_LOS) {
                 if (j==0) {
-                    fading_taps[j] *= gr_complex(sqrtf(d_K)/sqrtf(d_K+1),0);
+                    scale_factor = sqrtf(d_K)/sqrtf(d_K+1);
                 }
                 else {
-                    fading_taps[j] *= gr_complex(1/sqrtf(d_K+1),0);
+                    scale_factor = 1/sqrtf(d_K+1);
                 }
             }
-            }
+
+            d_faders[j]->next_samples(fading_taps[j], noutput_items,scale_factor);    
+        }
 
         // loop over each output sample
         for(int i=0; i<noutput_items; i++){

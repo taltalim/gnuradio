@@ -73,7 +73,7 @@ namespace gr {
 #define _GRFASTCOS(x)   cos(x)
 #endif
 
-    void flat_fader_impl::next_samples(std::vector<gr_complex> &Hvec, int n_samples){
+    void flat_fader_impl::next_samples(std::vector<gr_complex> &Hvec, int n_samples, float scale_factor){
         Hvec.resize(n_samples);
         for(int i = 0; i < n_samples; i++){
             gr_complex H(0,0);
@@ -94,14 +94,14 @@ namespace gr {
                 }
     
             update_theta();
-            Hvec[i] = H;
+            Hvec[i] = scale_factor*H;
         }
         
     }
 
-    gr_complex flat_fader_impl::next_sample(){
+    gr_complex flat_fader_impl::next_sample(float scale_factor){
         std::vector<gr_complex> v(1);
-        next_samples(v,1);
+        next_samples(v,1,scale_factor);
         return v[0];
     }
 
