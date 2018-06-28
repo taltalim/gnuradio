@@ -96,10 +96,10 @@ namespace gr {
 
             if (d_LOS) {
                 if (j==0) {
-                    fading_taps[j] *= sqrtf(d_K)/sqrtf(d_K+1);
+                    fading_taps[j] *= gr_complex(sqrtf(d_K)/sqrtf(d_K+1),0);
                 }
                 else {
-                    fading_taps[j] *= 1/sqrtf(d_K+1);
+                    fading_taps[j] *= gr_complex(1/sqrtf(d_K+1),0);
                 }
             }
             }
