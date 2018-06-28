@@ -67,8 +67,7 @@ namespace gr {
       virtual void set_K(float K){
             this->d_K = K;
             BOOST_FOREACH( gr::channels::flat_fader_impl* fader, d_faders )
-            { 
-              fader->d_K = K; fader->scale_los = sqrtf(fader->d_K)/sqrtf(fader->d_K+1); fader->scale_nlos = (1/sqrtf(fader->d_K+1));   
+            { fader->d_K = K; fader->scale_los = sqrtf(fader->d_K)/sqrtf(fader->d_K+1); fader->scale_nlos = (1/sqrtf(fader->d_K+1));  } 
             }
       virtual void set_step(float step){
             BOOST_FOREACH( gr::channels::flat_fader_impl* fader, d_faders )
