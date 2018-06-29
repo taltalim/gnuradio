@@ -32,6 +32,7 @@
 
 #include <iostream>
 
+// (hack)
 #define GR_M_PI M_PI
 
 
@@ -97,7 +98,7 @@ namespace gr {
 
             if (d_LOS) {
                 if (j==0) {
-                    scale_factor = sqrtf(d_K)/sqrtf(d_K+1);
+                    scale_factor = 1.0;
                 }
                 else {
                     scale_factor = 1/sqrtf(d_K+1);
